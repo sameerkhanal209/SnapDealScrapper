@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no, user-scalable=no">
+    <title>{{ data.title }} - {{ data.page }}</title>
+    <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-flex">
+            <h1><a href="{{ url_for('index')}}"><span class="sub-color">{{data.title}}</span></a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/search?q=t-shirt&o=plrty">T-Shirt</a></li>
+                    <li><a href="/search?q=sneakers&o=plrty">Sneakers</a></li>
+                    <li><a href="/search?q=jacket&o=plrty">Jackets</a></li>
+                    <li><a href="/search?q=mobile&o=plrty">Mobile</a></li>
+                    <li><a href="/search?q=laptop&o=plrty">Laptop</a></li>
+                </ul>
+            </nav>
+            <div class="header-down">
+                <form method="get" action="/search">
+                    <input type="text" name="q" class="search-bx" placeholder="Search here">
+                    <input type="hidden" name="o" value="plrty">
+                    <button type="submit"><i class="lni lni-search-alt"></i></button>
+                </form>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="info">
+            <div class="poster">
+                <img border="0" data-original-height="1350" data-original-width="1080" height="320" src="{{data.products.p_image}}" title="{{data.products.p_title}}">
+            </div>
+            <div class="desc">
+                <div class="about">
+                    <h2>{{data.products.p_title}}</h2>
+                    <div>
+                    <b>Original Price: </b> {{data.products.p_oPrice}} </div>
+                    <div>
+                    <b>Discounted Price: </b> <span class="price" style="font-size: 2em">{{data.products.p_price}}</span></div>
+                    <div>
+                        <a class="buy-now" href="https://snapdeal.com/product/{{data.query}}">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+            {% for key in data.products.specs %}
+            <div class="info2">
+                <h2>{{ data.products.specs[key]['stitle'] }}</h2>
+                {{ data.products.specs[key]['content']|safe }}
+            </div>
+            {% endfor %}
+        
+
+    </main>
+</body>
+</html>

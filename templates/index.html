@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no, user-scalable=no">
+    <title>{{ data.title }} - {{ data.page }}</title>
+    <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-flex">
+            <h1><a href="{{ url_for('index')}}"><span class="sub-color">{{data.title}}</span></a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/search?q=t-shirt&o=plrty">T-Shirt</a></li>
+                    <li><a href="/search?q=sneakers&o=plrty">Sneakers</a></li>
+                    <li><a href="/search?q=jacket&o=plrty">Jackets</a></li>
+                    <li><a href="/search?q=mobile&o=plrty">Mobile</a></li>
+                    <li><a href="/search?q=laptop&o=plrty">Laptop</a></li>
+                </ul>
+            </nav>
+            <div class="header-down">
+                <form method="get" action="/search">
+                    <input type="text" name="q" class="search-bx" placeholder="Search here">
+                    <input type="hidden" name="o" value="plrty">
+                    <button type="submit"><i class="lni lni-search-alt"></i></button>
+                </form>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="flex">
+            <h4>{{data.page}}</h4>
+
+            {% if (data.pt == 'search' or data.pt == 'cat') %}
+            <div>
+                <a href="{{data.purl}}&o=plrty">Popular</a>
+                <a href="{{data.purl}}&o=rec">Freshly Arrived</a>
+                <a href="{{data.purl}}&o=plth">Price Low To High</a>
+                <a href="{{data.purl}}&o=phtl">Price High To Low</a>
+                <a href="{{data.purl}}&o=dhtl">Discounted</a>
+            </div>
+            {% endif %}
+
+        </div>
+        <div class="updates-list">
+
+            {% for key in data['products'] %}
+            <div class="movie-card">
+                <a href="{{data['products'][key]['link']}}">
+                    <div class="card-img">
+                        <img src="{{data['products'][key]['image']}}">
+                    </div>
+                    <div class="card-name">
+                        <h2>{{data['products'][key]['title']}}</h2>
+                        <span><strike>{{data['products'][key]['oPrice']}}</strike> {{data['products'][key]['price']}}</span>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+
+            
+        </div>
+    </main>
+</body>
+</html>
